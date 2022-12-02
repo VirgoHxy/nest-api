@@ -45,6 +45,67 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
+## Build the application
+
+```
+npm run build
+```
+
+Open dist folder in your file system to check output.
+
+## Build the api by openapi-axios
+
+```
+npm run build:sdk
+```
+
+```typescript
+// 测试api用例
+import { Configuration, PingApi } from './sdk';
+
+// 这个config是公共的 作用于所有api
+const config = new Configuration({
+  basePath: 'http://localhost:3000',
+});
+
+class Test {
+  static instance = new Test();
+
+  constructor(private pingApi: PingApi = new PingApi(config)) {
+    this.init();
+  }
+
+  async init() {
+    try {
+      const result = await this.pingApi.pingControllerPing();
+      console.log(result.data);
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+}
+```
+
+## Generate/Run/Revert the migrations
+
+### generate
+
+```
+npm run migrate:g
+```
+
+#### run
+
+```
+npm run migrate:s
+```
+
+#### revert
+
+```
+npm run migrate:r
+```
+
 ## Test
 
 ```bash
