@@ -16,10 +16,10 @@ export const mysqlOptions: TypeOrmModuleOptions = {
   logging: appConfig.debug,
   // 启动项目是否自动运行迁移
   migrationsRun: false,
-  // entities: [join(__dirname, '..', 'entities/**/*.{ts,js}')],
+  entities: [join(__dirname, '..', 'models/mysql/**/*.entity.{ts,js}')],
   migrations: [join(__dirname, '..', 'migrations/**/*.{ts,js}')],
   /* nest配置 */
-  // 自动加载entity
   name: 'mysqlDataSource',
+  // 自动加载entity
   autoLoadEntities: true,
 };
