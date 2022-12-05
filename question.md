@@ -3,7 +3,6 @@
 ## question list
 
 - nest 如何不使用 dto 去验证一个单独的 param 参数，例如：`@Param('id', new ParseIntPipe()) id: number`，验证 id 是必填的
-- nest 下安装 typeorm 使用 migrate 提示报错`No changes in database schema were found - cannot generate a migration. To create a new empty migration use "typeorm migration:create" command`
 
 ## solved question list
 
@@ -59,6 +58,9 @@
   - `TypeOrmModule.forFeature` 是作用于模块内的，所以 datasource 必须在模块内 `@InjectDatasource` 再传给 repository.ts(放弃，比较麻烦，每一个 module 都要创建一个 repository.ts)
   - 使用同一个 MysqlCustomRepository，然后使用 useValue provider 将 entity inject 其中，然后使用 `private recordRepository: MysqlCustomRepository<Record>` 即可正常使用 repository
   - 注意使用 provider，参数必须要不是都通过 inject 方式注入，要不就是参数都有默认，最后提供必须不用手动传参数才能正常提供
+  - 使用 migrate 提示报错`No changes in database schema were found - cannot generate a migration. To create a new empty migration use "typeorm migration:create" command`
+    - 一般此报错都是配置不对，`entities` 没有指定正确的位置或者其他配置不对
+    - 因为 nest 中有`autoLoadEntities`自动加载实体的选项，所以如果只配了该选项也是无法完成 migrate 的，所以 `entities` 也需要配置
 - swagger
   - npm 包：`@nestjs/swagger` + `@nestjs/serve-static`
   - `@nestjs/serve-static` 是静态文件设置，在 app.module.ts 设置 index.html
